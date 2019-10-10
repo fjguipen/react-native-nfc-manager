@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import java.nio.charset.StandardCharsets;
+
 public class Util {
 
     static final String TAG = "NfcPlugin";
@@ -143,7 +145,7 @@ public class Util {
             json.put("tnf", record.getTnf());
             json.put("type", byteArrayToJSON(record.getType()));
             json.put("id", bytesToHex(record.getId()));
-            json.put("payload", byteArrayToJSON(record.getPayload()));
+            json.put("payload", new String(record.getPayload(), StandardCharsets.UTF_8));
         } catch (JSONException e) {
             //Not sure why this would happen, documentation is unclear.
             Log.e(TAG, "Failed to convert ndef record into json: " + record.toString(), e);
